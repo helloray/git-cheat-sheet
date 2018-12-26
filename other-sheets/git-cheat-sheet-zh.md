@@ -525,12 +525,12 @@ squash <commit_id3>
 ---
 ### 撤销
 
-##### 放弃工作目录下的所有修改：
+##### 放弃工作目录下的所有本地修改：
 ```
 $ git reset --hard HEAD
 ```
 
-##### 移除缓存区的所有文件（i.e. 撤销上次`git add`）:
+##### 移除暂存区的所有文件（i.e. 撤销上次`git add`）:
 ```
 $ git reset HEAD
 ```
@@ -540,7 +540,12 @@ $ git reset HEAD
 $ git checkout HEAD <file>
 ```
 
-##### 重置一个提交（通过创建一个截然不同的新提交）
+##### 恢复某个commit的指定文件到暂存区和工作区
+```
+$ git checkout [commit] [file]
+```
+
+##### 重置一个提交（通过创建一个与之相反的新提交）
 ```
 $ git revert <commit>
 ```
