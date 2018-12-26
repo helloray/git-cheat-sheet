@@ -447,7 +447,7 @@ $ git merge <branch>
 $ git cherry-pick <commit>
 ```
 
-##### 将当前分支变基到<branch>分支中(将当前分支的base变为<branch>, 再将与之相异的提交依次重演出来):
+##### 将当前分支变基到<branch>分支中(将当前分支的base变为branch, 再将与之相异的提交依次重演出来):
 <em><sub>请勿重置已发布的提交!</sub></em>
 ```
 $ git rebase <branch>
