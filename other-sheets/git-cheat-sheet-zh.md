@@ -33,7 +33,7 @@ Git Cheat Sheet 中文版
 * [提交历史](#提交历史)
 * [分支与标签](#分支与标签)
 * [更新与发布](#更新与发布)
-* [合并与重置](#合并与重置)
+* [合并与变基](#合并与变基)
 * [撤销](#撤销)
 * [Git Flow](#git-flow)
 
@@ -447,18 +447,18 @@ $ git merge <branch>
 $ git cherry-pick <commit>
 ```
 
-##### 将当前分支变基到<branch>分支中(将当前分支的base变为branch, 再将与之相异的提交依次重演出来):
-<em><sub>请勿重置已发布的提交!</sub></em>
+##### 将当前分支变基到branch分支中(将当前分支的base变为branch, 再将与之相异的提交依次重演出来):
+<em><sub>请勿变基已发布的提交!</sub></em>
 ```
 $ git rebase <branch>
 ```
 
-##### 退出重置:
+##### 退出变基:
 ```
 $ git rebase --abort
 ```
 
-##### 解决冲突后继续重置：
+##### 解决冲突后继续变基：
 ```
 $ git rebase --continue
 ```
