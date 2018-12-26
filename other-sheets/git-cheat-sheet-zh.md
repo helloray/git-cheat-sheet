@@ -107,48 +107,93 @@ $ git config --global core.editor vi
 ##### 复制一个已创建的仓库:
 
 ```bash
-# 通过 SSH
+# 通过SSH
 $ git clone ssh://user@domain.com/repo.git
 
-#通过 HTTP
+# 通过HTTP
 $ git clone http://domain.com/user/repo.git
+
+# 通过HTTP，包含子模块
+git clone --recursive http://domain.com/user/repo.git
+
+# 通过HTTP，获得裸版本库，裸版本库可用于搭建GIT服务器
+git clone --bare http://domain.com/user/repo.git
+
+# 通过HTTP ，获得裸版本库，并包含所有分支（镜像方式）
+git clone --mirror http://domain.com/user/repo.git
+
 ```
 
 ##### 创建一个新的本地仓库:
 ```
+# 创建新的本地仓库
 $ git init
+
+# 创建新的本地裸仓库
+$ git init --bare
 ```
 
 ---
 
 ### 本地修改
 
-##### 显示工作路径下已修改的文件：
+##### 检查当前文件状态：
 ```
 $ git status
 ```
 
-##### 显示与上次提交版本文件的不同：
+##### 查看尚未暂存的文件更新了哪些部分：
 ```
 $ git diff
 ```
 
-##### 把当前所有修改添加到下次提交中：
+##### 查看已暂存的文件更新了哪些部分：
+```
+$ git diff --staged
+$ git diff --cached
+```
+
+##### 把某几个文件添加到暂存区：
+```
+$ git add  <file1> <file2> ...
+```
+
+##### 添加指定目录到暂存区，包括子目录
+```
+$ git add <dir>
+```
+
+##### 把当前所有修改添加到暂存区：
 ```
 $ git add .
 ```
 
-##### 把对某个文件的修改添加到下次提交中：
+##### 交互式分块暂存
 ```
-$ git add -p <file>
+$ git add -p
 ```
 
-##### 提交本地的所有修改：
+##### 提交本地的所有修改（跳过暂存区，可以省略git add）：
 ```
 $ git commit -a
 ```
 
-##### 提交之前已标记的变化：
+##### 删除工作区文件，并且将这次删除放入暂存区
+```
+$ git rm <file1> <file2> ...
+```
+
+##### 停止追踪指定文件，但该文件会保留在工作区
+```
+$ git rm --cached <file>
+```
+
+##### 改名文件，并且将这个改名放入暂存区
+```
+$ git mv <file-original> <file-renamed>
+```
+
+##### 提交暂存区：
 ```
 $ git commit
 ```
@@ -156,6 +201,11 @@ $ git commit
 ##### 附加消息提交：
 ```
 $ git commit -m 'message here'
+```
+
+##### 提交本地的所有修改并附加消息：
+```
+$ git commit -a -m 'message here'
 ```
 
 ##### 提交，并将提交时间设置为之前的某个日期:
@@ -256,7 +306,7 @@ $ git reflog delete
 ---
 ### 分支与标签
 
-##### 列出所有的分支：
+##### 列出所有的本地分支：
 ```
 $ git branch
 ```
@@ -266,9 +316,19 @@ $ git branch
 $ git branch -r
 ```
 
+##### 列出所有的本地及远端分支：
+```
+$ git branch -a
+```
+
 ##### 切换分支：
 ```
 $ git checkout <branch>
+```
+
+##### 切换到上一个分支
+```
+$ git checkout -
 ```
 
 ##### 创建并切换到新分支:
@@ -276,14 +336,29 @@ $ git checkout <branch>
 $ git checkout -b <branch>
 ```
 
-##### 基于当前分支创建新分支：
+##### 基于当前分支创建新分支，但依然停留在当前分支：
 ```
 $ git branch <new-branch>
 ```
 
-##### 基于远程分支创建新的可追溯的分支：
+##### 新建一个分支，指向指定commit
+```
+$ git branch <branch> <commit>
+```
+
+##### 新建一个分支，与指定的远程分支建立追踪关系：
 ```
 $ git branch --track <new-branch> <remote-branch>
+```
+
+##### 建立追踪关系，在现有分支与指定的远程分支之间
+```
+$ git branch --set-upstream <branch> <remote-branch>
+```
+
+##### 本地分支更名：
+```
+$ git branch -m <old_branch> <new_branch>
 ```
 
 ##### 删除本地分支:
@@ -312,44 +387,39 @@ $ git tag -a <tag-name>
 ---
 ### 更新与发布
 
-##### 列出当前配置的远程端：
+##### 列出当前配置的远程仓库：
 ```
 $ git remote -v
 ```
 
-##### 显示远程端的信息：
+##### 显示远程仓库的信息：
 ```
 $ git remote show <remote>
 ```
 
-##### 添加新的远程端：
+##### 添加新的远程仓库：
 ```
 $ git remote add <remote> <url>
 ```
 
-##### 下载远程端版本，但不合并到HEAD中：
+##### 下载远程仓库，但不合并：
 ```
 $ git fetch <remote>
 ```
 
-##### 下载远程端版本，并自动与HEAD版本合并：
+##### 取回远程仓库的变化，并与本地分支合并：
 ```
-$ git remote pull <remote> <url>
-```
-
-##### 将远程端版本合并到本地版本中：
-```
-$ git pull origin master
+$ git pull <remote> <branch>
 ```
 
-##### 以rebase方式将远端分支与本地合并：
+##### 以rebase方式将远程仓库与本地合并：
 ```
 git pull --rebase <remote> <branch>
 ```
 
-##### 将本地版本发布到远程端：
+##### 上传本地指定分支到远程仓库：
 ```
-$ git push remote <remote> <branch>
+$ git push <remote> <branch>
 ```
 
 ##### 删除远程端分支：
