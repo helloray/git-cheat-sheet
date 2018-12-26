@@ -114,13 +114,13 @@ $ git clone ssh://user@domain.com/repo.git
 $ git clone http://domain.com/user/repo.git
 
 # 通过HTTP，包含子模块
-git clone --recursive http://domain.com/user/repo.git
+$ git clone --recursive http://domain.com/user/repo.git
 
 # 通过HTTP，获得裸版本库，裸版本库可用于搭建GIT服务器
-git clone --bare http://domain.com/user/repo.git
+$ git clone --bare http://domain.com/user/repo.git
 
 # 通过HTTP ，获得裸版本库，并包含所有分支（镜像方式）
-git clone --mirror http://domain.com/user/repo.git
+$ git clone --mirror http://domain.com/user/repo.git
 
 ```
 
@@ -437,12 +437,17 @@ $ git push --tags
 ---
 ###合并与重置(Rebase)
 
-##### 将分支合并到当前HEAD中：
+##### 将某分支合并到当前分支中：
 ```
 $ git merge <branch>
 ```
 
-##### 将当前HEAD版本重置到分支中:
+##### 选择一个commit，合并进当前分支
+```
+$ git cherry-pick <commit>
+```
+
+##### 将当前分支变基到<branch>分支中(将当前分支的base变为<branch>, 再将与之相异的提交依次重演出来):
 <em><sub>请勿重置已发布的提交!</sub></em>
 ```
 $ git rebase <branch>
@@ -457,6 +462,30 @@ $ git rebase --abort
 ```
 $ git rebase --continue
 ```
+
+##### 比较merge和rebase:
+```
+在feature分支上发出合并指令git merge master：
+这样会把master分支的提交合到feature自己身上，然后再创建一次合并提交，当前分支仍是feature
+
+在master分支上发出合并指令git merge feature：
+这样会把feature分支的提交合到master自己身上，然后再创建一次合并提交，当前分支仍是master
+
+在master分支上发出变基指令git rebase feature：
+这样会把master分支异于feature分支的提交接在feature之后，当前分支仍是master
+
+在feature分支上发出变基指令git rebase master：
+这样会把feature分支异于master分支的提交接在master之后，当前分支仍是feature
+
+比较几种合代码的情况:
+如果要进行merge操作的话，最好是在主分支上执行merge，把次分支的代码合进来；
+如果要进行rebase操作的话，最好是在次分支上进行，把自己变基合入主分支。
+次分支变基完成后，通常还需要转到主分支再次merge
+$ git checkout master
+$ git merge feature
+
+```
+
 
 ##### 使用配置好的merge tool 解决冲突：
 ```
