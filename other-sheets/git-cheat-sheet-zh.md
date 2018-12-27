@@ -25,6 +25,7 @@ Git Cheat Sheet 中文版
 =====================
 
 ### 索引
+* [基础](#基础)
 * [配置](#配置)
 * [配置文件](#配置文件)
 * [创建](#创建)
@@ -36,6 +37,21 @@ Git Cheat Sheet 中文版
 * [合并与变基](#合并与变基)
 * [撤销](#撤销)
 * [Git Flow](#git-flow)
+
+---
+
+### 基础
+-----------------
+
+<p align="center">
+    <img alt="Git" src="../Img/git-basic.png" height="170" width="586">
+</p>
+
+------------------
+* Workspace：工作区
+* Index / Stage：暂存区
+* Repository：仓库区（或本地仓库）
+* Remote：远程仓库
 
 ---
 
@@ -205,7 +221,7 @@ $ git commit -m 'message here'
 
 ##### 提交本地的所有修改并附加消息：
 ```
-$ git commit -a -m 'message here'
+$ git commit -am 'message here'
 ```
 
 ##### 提交，并将提交时间设置为之前的某个日期:
@@ -229,7 +245,7 @@ GIT_COMMITTER_DATE="date" git commit --amend
 git commit --amend --date="date"
 ```
 
-##### 把当前分支中未提交的修改移动到其他分支：
+##### 把当前分支中未提交的修改先储藏，再移动到其他分支：
 ```
 git stash
 git checkout branch2
@@ -402,7 +418,7 @@ $ git remote show <remote>
 $ git remote add <remote> <url>
 ```
 
-##### 下载远程仓库，但不合并：
+##### 下载远程仓库，但不合并(可利用git branch -r查看，再利用git merge合并)：
 ```
 $ git fetch <remote>
 ```
