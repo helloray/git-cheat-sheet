@@ -226,7 +226,7 @@ $ git commit -am 'message here'
 
 ##### 提交，并将提交时间设置为之前的某个日期:
 ```
-git commit --date="`date --date='n day ago'`" -am "Commit Message"
+$ git commit --date="`date --date='n day ago'`" -am "Commit Message"
 ```
 
 ##### 修改上次提交
@@ -237,29 +237,29 @@ $ git commit --amend
 
 ##### 修改上次提交的committer date：
 ```
-GIT_COMMITTER_DATE="date" git commit --amend
+$ GIT_COMMITTER_DATE="date" git commit --amend
 ```
 
 ##### 修改上次提交的author date：
 ```
-git commit --amend --date="date"
+$ git commit --amend --date="date"
 ```
 
 ##### 把当前分支中未提交的修改先储藏，再移动到其他分支：
 ```
-git stash
-git checkout branch2
-git stash pop
+$ git stash
+$ git checkout branch2
+$ git stash pop
 ```
 
 ##### 将 stashed changes 应用到当前分支：
 ```
-git stash apply
+$ git stash apply
 ```
 
 ##### 删除最新一次的 stashed changes：
 ```
-git stash drop
+$ git stash drop
 ```
 
 ---
@@ -342,14 +342,21 @@ $ git branch -a
 $ git checkout <branch>
 ```
 
-##### 切换到上一个分支
+##### 切换到上一个分支：
 ```
 $ git checkout -
 ```
 
-##### 创建并切换到新分支:
+##### 创建并切换到新分支：
 ```
 $ git checkout -b <branch>
+```
+
+##### 创建并切换到新分支且与远程分支建立跟踪关系：
+```
+$ git checkout -b <branch> <remote-branch>
+# 1.6.2 以上版本的 Git，还可以用 --track 选项简化
+$ git checkout --track <remote-branch>
 ```
 
 ##### 基于当前分支创建新分支，但依然停留在当前分支：
@@ -430,7 +437,7 @@ $ git pull <remote> <branch>
 
 ##### 以rebase方式将远程仓库与本地合并：
 ```
-git pull --rebase <remote> <branch>
+$ git pull --rebase <remote> <branch>
 ```
 
 ##### 上传本地指定分支到远程仓库：
@@ -440,6 +447,7 @@ $ git push <remote> <branch>
 
 ##### 删除远程端分支：
 ```
+#有种方便记忆这条命令的方法：记住我们不久前见过的 git push [远程名] [本地分支]:[远程分支] 语法，如果省略 [本地分支]，那就等于是在说“在这里提取空白然后把它变成[远程分支]”
 $ git push <remote> :<branch> (since Git v1.5.0)
 or
 git push <remote> --delete <branch> (since Git v1.7.0)
